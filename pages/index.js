@@ -40,8 +40,8 @@ export async function getStaticProps() {
     props: {
       meetups: DUMMY_MEETUPS,
     },
-    // revalidate unlocks incremental static generation
-    revalidate: 
+    // revalidate unlocks incremental static generation. Regenerates the server when there are incoming requests
+    revalidate: 10, // number of seconds Next will wait until it regenerates this page for an incoming request
   };
 }
 // A problem with getStaticProps is that if we add more data after it is deployed, it won't update the app w/ that new data.
