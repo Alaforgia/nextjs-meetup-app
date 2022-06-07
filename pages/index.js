@@ -1,3 +1,4 @@
+import Layout from "../components/layout/Layout";
 import MeetupList from "../components/meetups/MeetupList";
 
 const DUMMY_MEETUPS = [
@@ -9,10 +10,22 @@ const DUMMY_MEETUPS = [
     address: "Some Address",
     description: "This is a second meetup!",
   },
+  {
+    id: "m2",
+    title: "A Second Meetup",
+    image:
+      "https://upload.wikimedia.org/wikipedia/commons/thumb/d/d3/Stadtbild_M%C3%BCnchen.jpg/1024px-Stadtbild_M%C3%BCnchen.jpg",
+    address: "Some Address",
+    description: "This is a second meetup!",
+  },
 ];
 
 function HomePage() {
-  return <MeetupList meetups={DUMMY_MEETUPS} />;
+  return (
+    <Layout>
+      <MeetupList meetups={DUMMY_MEETUPS} />
+    </Layout>
+  );
 }
 
 export default HomePage;
