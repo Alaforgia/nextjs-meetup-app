@@ -1,7 +1,6 @@
 import Layout from "../components/layout/Layout";
 import MeetupList from "../components/meetups/MeetupList";
 
-
 const DUMMY_MEETUPS = [
   {
     id: "m1",
@@ -21,7 +20,7 @@ const DUMMY_MEETUPS = [
   },
 ];
 
-function HomePage() {
+function HomePage(props) {
   return (
     <Layout>
       <MeetupList meetups={props.meetups} />
