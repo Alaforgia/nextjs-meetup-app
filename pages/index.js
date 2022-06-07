@@ -37,6 +37,17 @@ function HomePage() {
 
 // only works in pages component files
 // getStaticProps is a reserved name in Next
-export getStaticProps() {}
+// Next will wait for data to be loaded w/ async promise
+export async function getStaticProps() {
+  // code in here will not end up on client side. Never execute on client side.
+  // It is executed during build process, not on user machines
+
+  // fetch data from an API
+  return {
+    props: {
+      meetups: DUMMY_MEETUPS
+    }
+  };
+}
 
 export default HomePage;
