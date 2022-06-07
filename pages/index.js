@@ -1,5 +1,6 @@
 import Layout from "../components/layout/Layout";
 import MeetupList from "../components/meetups/MeetupList";
+import { useEffect, useState } from "react";
 
 const DUMMY_MEETUPS = [
   {
@@ -21,11 +22,21 @@ const DUMMY_MEETUPS = [
 ];
 
 function HomePage() {
+  const [loadedMeetups, setLoadedMeetups] = useState([]);
+
+  useEffect(() => {
+    //send a http request and fetch data
+    setLoadedMeetups(DUMMY_MEETUPS);
+  }, []);
   return (
     <Layout>
-      <MeetupList meetups={DUMMY_MEETUPS} />
+      <MeetupList meetups={loadedMeetups} />
     </Layout>
   );
 }
+
+// only works in pages component files
+// getStaticProps is a reserved name in Next
+export getStaticProps() {}
 
 export default HomePage;
