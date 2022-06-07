@@ -4,7 +4,7 @@ import Card from "../ui/Card";
 import classes from "./MeetupItem.module.css";
 
 function MeetupItem(props) {
-  const router = userRouter();
+  const router = useRouter();
 
   function showDetailsHandler() {
     // .push is equivalent to link. This is a dynamic link
