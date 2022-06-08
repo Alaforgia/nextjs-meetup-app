@@ -11,10 +11,28 @@ function MeetupDetails() {
   );
 }
 
+export async function getStaticPaths() {
+  return {
+    // below is the paths for dynamic pages. This is used for APIs also, but usually not hardcoded
+    paths: [
+      {
+        params: {
+          meetupId: "m1",
+        },
+      },
+      {
+        params: {
+          meetupId: "m2",
+        },
+      },
+    ],
+  };
+}
+
 export async function getStaticProps(context) {
   // fetch data for a single meetup
 
-  const meetupId = context.param.meetupId;
+  const meetupId = context.params.meetupId;
 
   console.log(meetupId);
 
