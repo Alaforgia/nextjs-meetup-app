@@ -11,7 +11,13 @@ function MeetupDetails() {
   );
 }
 
-export async function getStaticProps() {
+export async function getStaticProps(context) {
+  // fetch data for a single meetup
+
+  const meetupId = context.param.meetupId;
+
+  console.log(meetupId);
+
   return {
     props: {
       meetupData: {
