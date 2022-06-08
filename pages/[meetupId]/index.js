@@ -11,4 +11,19 @@ function MeetupDetails() {
   );
 }
 
+export async function getStaticProps() {
+  return {
+    props: {
+      meetupData: {
+        image:
+          "https://upload.wikimedia.org/wikipedia/commons/thumb/d/d3/Stadtbild_M%C3%BCnchen.jpg/1024px-Stadtbild_M%C3%BCnchen.jpg",
+        id: "m1",
+        title: "First Meetup",
+        address: " Some Street",
+        description: "This is a first meetup",
+      },
+    },
+  };
+}
+
 export default MeetupDetails;
