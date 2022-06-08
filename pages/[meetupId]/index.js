@@ -13,6 +13,11 @@ function MeetupDetails() {
 
 export async function getStaticPaths() {
   return {
+    // This key tells Next you paths array contains all supported parameter values, or just some of them.
+    // false, says that paths contain all of our id values
+    // true, Next tries to generate a page for this id dynamically
+    // fallback allows us to pre-generate some of our pages for specific id values
+    fallback: false,
     // below is the paths for dynamic pages. This is used for APIs also, but usually not hardcoded
     paths: [
       {
