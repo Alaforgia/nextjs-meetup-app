@@ -12,12 +12,26 @@ function MeetupDetails() {
 }
 
 export async function getStaticPaths() {
+  const client = MongoClient.connect("mongodv+srv://[username-here]:<password> rest of connection string");
+  const db = client.db();
+
+  const meetupsCollection = db.collection("meetups");
+
+  // empty object returns all document objects. 2nd object w/ id is returning just the id of all doc objects
+  const meetups = await meetupsCollection.find({}, { _id: 1 }).toArray();
+
+  client.close();
   return {
     // This key tells Next you paths array contains all supported parameter values, or just some of them.
     // false, says that paths contain all of our id values
     // true, Next tries to generate a page for this id dynamically
     // fallback allows us to pre-generate some of our pages for specific id values
     fallback: false,
+
+    // below, we are generating our paths dynamically
+    paths: meetupId.map((meetup) => ({
+      params: { meetupID: meetup._id.toString() },
+    })),
     // below is the paths for dynamic pages. This is used for APIs also, but usually not hardcoded
     paths: [
       {
@@ -35,19 +49,17 @@ export async function getStaticPaths() {
 }
 
 export async function getStaticProps(context) {
+  // fetch data for a single meetup
+
+  const meetupId = context.params.meetupId;
+
   const client = MongoClient.connect("mongodv+srv://[username-here]:<password> rest of connection string");
   const db = client.db();
 
   const meetupsCollection = db.collection("meetups");
 
-  // empty object returns all document objects. 2nd object w/ id is returning just the id of all doc objects
-  const meetups = await meetupsCollection.find({}, { _id: 1 });
-
-  // fetch data for a single meetup
-
-  const meetupId = context.params.meetupId;
-
-  console.log(meetupId);
+  // findOne finds one single document.
+  const selectedMeetups = await meetupsCollection.findOne({ _id: meetupId });
 
   return {
     props: {
