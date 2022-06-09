@@ -1,12 +1,20 @@
 import MeetupDetail from "../../components/meetups/MeetupDetail";
-// import mongodb
-function MeetupDetails() {
+// import mongodb // ObjectId - convert id to string in mongodb.
+function MeetupDetails(props) {
   return (
+    // Hard Coded
+    // <MeetupDetail
+    //   image="https://upload.wikimedia.org/wikipedia/commons/thumb/d/d3/Stadtbild_M%C3%BCnchen.jpg/1024px-Stadtbild_M%C3%BCnchen.jpg"
+    //   title="First Meetup"
+    //   address="Some Street"
+    //   description="This is a first meetup"
+    // />
     <MeetupDetail
-      image="https://upload.wikimedia.org/wikipedia/commons/thumb/d/d3/Stadtbild_M%C3%BCnchen.jpg/1024px-Stadtbild_M%C3%BCnchen.jpg"
-      title="First Meetup"
-      address="Some Street"
-      description="This is a first meetup"
+      // need to get to meetupData first, before specific object
+      image={props.meetupData.image}
+      title={props.meetupData.title}
+      address={props.meetupData.address}
+      description={props.meetupData.description}
     />
   );
 }
@@ -59,17 +67,24 @@ export async function getStaticProps(context) {
   const meetupsCollection = db.collection("meetups");
 
   // findOne finds one single document.
-  const selectedMeetups = await meetupsCollection.findOne({ _id: meetupId });
+  const selectedMeetup = await meetupsCollection.findOne({ _id: ObjectId(meetupId) }); // ObjectId needed to convert id to string object
 
   return {
     props: {
       meetupData: {
-        image:
-          "https://upload.wikimedia.org/wikipedia/commons/thumb/d/d3/Stadtbild_M%C3%BCnchen.jpg/1024px-Stadtbild_M%C3%BCnchen.jpg",
-        id: "m1",
-        title: "First Meetup",
-        address: " Some Street",
-        description: "This is a first meetup",
+        id: selectedMeetup._id.toString(),
+        title: selectedMeetup.title,
+        address: selectedMeetup.address,
+        image: selectedMeetup.image,
+        description: selectedMeetup.description,
+
+        // Hard coded data
+        // image:
+        //   "https://upload.wikimedia.org/wikipedia/commons/thumb/d/d3/Stadtbild_M%C3%BCnchen.jpg/1024px-Stadtbild_M%C3%BCnchen.jpg",
+        // id: "m1",
+        // title: "First Meetup",
+        // address: " Some Street",
+        // description: "This is a first meetup",
       },
     },
   };
