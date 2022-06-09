@@ -1,5 +1,7 @@
 import MeetupDetail from "../../components/meetups/MeetupDetail";
 // import {mongodb, ObjectId} - convert id to string in mongodb.
+import Head from "next/head";
+import { Fragment } from "react";
 function MeetupDetails(props) {
   return (
     // Hard Coded
@@ -9,13 +11,20 @@ function MeetupDetails(props) {
     //   address="Some Street"
     //   description="This is a first meetup"
     // />
-    <MeetupDetail
-      // need to get to meetupData first, before specific object
-      image={props.meetupData.image}
-      title={props.meetupData.title}
-      address={props.meetupData.address}
-      description={props.meetupData.description}
-    />
+    <Fragment>
+      <Head>
+        {/* The title for meetupId has to be dynamic. Each meetup is different, the meta data should reflect the data in the new meetup */}
+        <title>{props.meetupData.title}</title>
+        <meta name="description" content={props.meetupData.description} />
+      </Head>
+      <MeetupDetail
+        // need to get to meetupData first, before specific object
+        image={props.meetupData.image}
+        title={props.meetupData.title}
+        address={props.meetupData.address}
+        description={props.meetupData.description}
+      />
+    </Fragment>
   );
 }
 
