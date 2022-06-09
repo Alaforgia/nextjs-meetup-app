@@ -1,5 +1,5 @@
 import MeetupDetail from "../../components/meetups/MeetupDetail";
-// import mongodb // ObjectId - convert id to string in mongodb.
+// import {mongodb, ObjectId} - convert id to string in mongodb.
 function MeetupDetails(props) {
   return (
     // Hard Coded

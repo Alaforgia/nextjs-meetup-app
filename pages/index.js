@@ -1,3 +1,5 @@
+import Head from "next/head"; // allows us to put meta data in the Head
+import { Fragment } from "react";
 import Layout from "../components/layout/Layout";
 import MeetupList from "../components/meetups/MeetupList";
 import { MongoClient } from "mongodb";
@@ -23,9 +25,16 @@ const DUMMY_MEETUPS = [
 
 function HomePage(props) {
   return (
-    <Layout>
+    <Fragment>
+      <Head>
+        <title>React Meetups</title>
+        <meta />
+      </Head>
+
+      {/* // <Layout> */}
       <MeetupList meetups={props.meetups} />
-    </Layout>
+      {/* // </Layout> */}
+    </Fragment>
   );
 }
 
