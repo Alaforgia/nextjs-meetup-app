@@ -1,5 +1,6 @@
 import Layout from "../components/layout/Layout";
 import MeetupList from "../components/meetups/MeetupList";
+import { MongoClient } from "mongodb";
 
 const DUMMY_MEETUPS = [
   {
@@ -48,9 +49,27 @@ export async function getStaticProps() {
   // It is executed during build process, not on user machines
 
   // fetch data from an API
+  // Next allows us to use fetch in server side code snippets as well
+  // fetch("/api/meetups");
+
+  const client = MongoClient.connect("mongodv+srv://[username-here]:<password> rest of connection string");
+
+  const db = client.db();
+
+  const meetupsCollection = db.collection("meetups");
+
+  const meetups = await meetupsCollection.find().toArray();
+
+  client.close();
+
   return {
     props: {
-      meetups: DUMMY_MEETUPS,
+      meetups: meetups.map((meetup) => ({
+        title: meetup.title,
+        address: meetup.address,
+        image: meetup.image,
+        id: meetup._id.toString(),
+      })),
     },
     // revalidate unlocks incremental static generation. Regenerates the server when there are incoming requests
     revalidate: 1, // number of seconds Next will wait until it regenerates this page for an incoming request

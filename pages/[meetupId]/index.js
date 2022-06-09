@@ -1,5 +1,5 @@
 import MeetupDetail from "../../components/meetups/MeetupDetail";
-
+// import mongodb
 function MeetupDetails() {
   return (
     <MeetupDetail
@@ -35,6 +35,14 @@ export async function getStaticPaths() {
 }
 
 export async function getStaticProps(context) {
+  const client = MongoClient.connect("mongodv+srv://[username-here]:<password> rest of connection string");
+  const db = client.db();
+
+  const meetupsCollection = db.collection("meetups");
+
+  // empty object returns all document objects. 2nd object w/ id is returning just the id of all doc objects
+  const meetups = await meetupsCollection.find({}, { _id: 1 });
+
   // fetch data for a single meetup
 
   const meetupId = context.params.meetupId;
